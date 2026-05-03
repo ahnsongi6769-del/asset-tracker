@@ -126,24 +126,27 @@ const DashboardView = (() => {
             : `<div class="chart-no-data">두 달치 데이터가 쌓이면 추이 차트가 보여요 📈</div>`}
         </div>
 
-        <!-- ② 월별 증감 막대 차트 -->
-        <div class="chart-card">
-          <div class="chart-card-header">
-            <span class="chart-card-title">월별 증감</span>
+        <!-- ②③ 월별 증감 + 자산 구성 (가로 모드에서 2열 그리드) -->
+        <div class="chart-pair-row">
+          <!-- ② 월별 증감 막대 차트 -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <span class="chart-card-title">월별 증감</span>
+            </div>
+            ${_entries.length >= 2
+              ? `<div class="chart-container" style="height:200px"><canvas id="chart-delta"></canvas></div>
+                 <div id="delta-detail" class="delta-detail hidden"></div>`
+              : `<div class="chart-no-data">두 달치 데이터가 쌓이면 증감 차트가 보여요 📊</div>`}
           </div>
-          ${_entries.length >= 2
-            ? `<div class="chart-container" style="height:200px"><canvas id="chart-delta"></canvas></div>
-               <div id="delta-detail" class="delta-detail hidden"></div>`
-            : `<div class="chart-no-data">두 달치 데이터가 쌓이면 증감 차트가 보여요 📊</div>`}
-        </div>
 
-        <!-- ③ 자산 구성 도넛 차트 -->
-        <div class="chart-card">
-          <div class="chart-card-header">
-            <span class="chart-card-title">자산 구성</span>
-          </div>
-          <div class="chart-container chart-donut-container" style="height:260px">
-            <canvas id="chart-composition"></canvas>
+          <!-- ③ 자산 구성 도넛 차트 -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <span class="chart-card-title">자산 구성</span>
+            </div>
+            <div class="chart-container chart-donut-container" style="height:260px">
+              <canvas id="chart-composition"></canvas>
+            </div>
           </div>
         </div>
 
