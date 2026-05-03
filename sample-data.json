@@ -1,0 +1,257 @@
+{
+  "version": "1.0",
+  "exportedAt": 1746144000000,
+  "description": "송이님 자산 데이터 - 2025년 9월 ~ 2026년 4월 (8개월)",
+  "items": [
+    {
+      "id": "item-real-estate",
+      "name": "부동산 (전세/매매)",
+      "category": "비현금성",
+      "order": 1,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-songi-isa",
+      "name": "송이 ISA",
+      "category": "비현금성",
+      "order": 2,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-gyujin-isa",
+      "name": "규진 ISA",
+      "category": "비현금성",
+      "order": 3,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-songi-housing",
+      "name": "송이 주택청약",
+      "category": "비현금성",
+      "order": 4,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-gyujin-housing",
+      "name": "규진 주택청약",
+      "category": "비현금성",
+      "order": 5,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-stocks",
+      "name": "주식",
+      "category": "현금성",
+      "order": 1,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-bonds",
+      "name": "채권투자",
+      "category": "현금성",
+      "order": 2,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-short-term-cash",
+      "name": "단기가용 자금",
+      "category": "현금성",
+      "order": 3,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-event-account",
+      "name": "경조사 통장",
+      "category": "현금성",
+      "order": 4,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    },
+    {
+      "id": "item-crypto",
+      "name": "가상화폐",
+      "category": "현금성",
+      "order": 5,
+      "active": true,
+      "createdAt": 1756656000000,
+      "updatedAt": 1756656000000
+    }
+  ],
+  "entries": [
+    {
+      "id": "entry-2025-09",
+      "month": "2025-09",
+      "values": {
+        "item-real-estate": 0,
+        "item-songi-isa": 5506918,
+        "item-gyujin-isa": 2769659,
+        "item-songi-housing": 2850000,
+        "item-gyujin-housing": 4250000,
+        "item-stocks": 96066955,
+        "item-bonds": 70270843,
+        "item-short-term-cash": 0,
+        "item-event-account": 270000,
+        "item-crypto": 296016
+      },
+      "comment": "주식 상승",
+      "createdAt": 1759276800000,
+      "updatedAt": 1759276800000
+    },
+    {
+      "id": "entry-2025-10",
+      "month": "2025-10",
+      "values": {
+        "item-real-estate": 0,
+        "item-songi-isa": 8435056,
+        "item-gyujin-isa": 4312194,
+        "item-songi-housing": 4900000,
+        "item-gyujin-housing": 4300000,
+        "item-stocks": 167558739,
+        "item-bonds": 0,
+        "item-short-term-cash": 1000000,
+        "item-event-account": 1000000,
+        "item-crypto": 5326698
+      },
+      "comment": "주식 상승 + 규진 상여 500만",
+      "createdAt": 1761955200000,
+      "updatedAt": 1761955200000
+    },
+    {
+      "id": "entry-2025-11",
+      "month": "2025-11",
+      "values": {
+        "item-real-estate": 0,
+        "item-songi-isa": 7776141,
+        "item-gyujin-isa": 4407700,
+        "item-songi-housing": 4950000,
+        "item-gyujin-housing": 4350000,
+        "item-stocks": 162812750,
+        "item-bonds": 0,
+        "item-short-term-cash": 350000,
+        "item-event-account": 700000,
+        "item-crypto": 5601301
+      },
+      "comment": "IT 버블론 미장 & 국장 하락",
+      "createdAt": 1764547200000,
+      "updatedAt": 1764547200000
+    },
+    {
+      "id": "entry-2025-12",
+      "month": "2025-12",
+      "values": {
+        "item-real-estate": 0,
+        "item-songi-isa": 8573635,
+        "item-gyujin-isa": 4407700,
+        "item-songi-housing": 5000000,
+        "item-gyujin-housing": 4400000,
+        "item-stocks": 168501945,
+        "item-bonds": 461565,
+        "item-short-term-cash": 350000,
+        "item-event-account": 750000,
+        "item-crypto": 5387185
+      },
+      "comment": "규진 상여 600만, 엔화 투자 시작",
+      "createdAt": 1767225600000,
+      "updatedAt": 1767225600000
+    },
+    {
+      "id": "entry-2026-01",
+      "month": "2026-01",
+      "values": {
+        "item-real-estate": 0,
+        "item-songi-isa": 11927328,
+        "item-gyujin-isa": 5227500,
+        "item-songi-housing": 5050000,
+        "item-gyujin-housing": 4450000,
+        "item-stocks": 173787801,
+        "item-bonds": 468205,
+        "item-short-term-cash": 450000,
+        "item-event-account": 600000,
+        "item-crypto": 5521540
+      },
+      "comment": "국장 상승",
+      "createdAt": 1769904000000,
+      "updatedAt": 1769904000000
+    },
+    {
+      "id": "entry-2026-02",
+      "month": "2026-02",
+      "values": {
+        "item-real-estate": 0,
+        "item-songi-isa": 13272709,
+        "item-gyujin-isa": 5568500,
+        "item-songi-housing": 5100000,
+        "item-gyujin-housing": 4500000,
+        "item-stocks": 169278436,
+        "item-bonds": 922250,
+        "item-short-term-cash": 500000,
+        "item-event-account": 0,
+        "item-crypto": 4977000
+      },
+      "comment": "미장 하락",
+      "createdAt": 1772323200000,
+      "updatedAt": 1772323200000
+    },
+    {
+      "id": "entry-2026-03",
+      "month": "2026-03",
+      "values": {
+        "item-real-estate": 200000000,
+        "item-songi-isa": 0,
+        "item-gyujin-isa": 0,
+        "item-songi-housing": 2000000,
+        "item-gyujin-housing": 0,
+        "item-stocks": 2083762,
+        "item-bonds": 215495,
+        "item-short-term-cash": 100000,
+        "item-event-account": 0,
+        "item-crypto": 0
+      },
+      "comment": "",
+      "createdAt": 1775001600000,
+      "updatedAt": 1775001600000
+    },
+    {
+      "id": "entry-2026-04",
+      "month": "2026-04",
+      "values": {
+        "item-real-estate": 200000000,
+        "item-songi-isa": 0,
+        "item-gyujin-isa": 0,
+        "item-songi-housing": 1700000,
+        "item-gyujin-housing": 0,
+        "item-stocks": 8374024,
+        "item-bonds": 40035444,
+        "item-short-term-cash": 0,
+        "item-event-account": 0,
+        "item-crypto": 0
+      },
+      "comment": "규진 상여 500만, 퇴직금 4100만",
+      "createdAt": 1777593600000,
+      "updatedAt": 1777593600000
+    }
+  ],
+  "settings": {
+    "goal": {
+      "name": "2억 목표",
+      "targetAmount": 200000000
+    }
+  }
+}

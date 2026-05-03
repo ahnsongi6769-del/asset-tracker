@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 에디터
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (혹시나)
+node_modules/
+npm-debug.log*
+
+# 로그/임시
+*.log
+.cache/
+.tmp/
+
+# 환경 변수
+.env
+.env.local
+
+# 백업 파일
+*.bak
+*.backup
