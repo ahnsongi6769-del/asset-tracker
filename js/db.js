@@ -4,9 +4,11 @@
 const DB = (() => {
   const { get, set, clear: clearStore } = idbKeyval;
 
-  const KEY_ITEMS    = 'items';
-  const KEY_ENTRIES  = 'entries';
-  const KEY_SETTINGS = 'settings';
+  const KEY_ITEMS          = 'items';
+  const KEY_ENTRIES        = 'entries';
+  const KEY_SETTINGS       = 'settings';
+  const KEY_RE_PROPERTIES  = 're_properties';
+  const KEY_RE_PRICES      = 're_prices';
 
   async function getItems()    { return (await get(KEY_ITEMS))    || []; }
   async function setItems(v)   { await set(KEY_ITEMS, v); }
@@ -17,9 +19,16 @@ const DB = (() => {
   async function getSettings() { return (await get(KEY_SETTINGS)) || { goal: null }; }
   async function setSettings(v){ await set(KEY_SETTINGS, v); }
 
+  async function getReProperties()  { return (await get(KEY_RE_PROPERTIES)) || []; }
+  async function setReProperties(v) { await set(KEY_RE_PROPERTIES, v); }
+  async function getRePrices()      { return (await get(KEY_RE_PRICES)) || []; }
+  async function setRePrices(v)     { await set(KEY_RE_PRICES, v); }
+
   async function exportAll() {
-    const [items, entries, settings] = await Promise.all([getItems(), getEntries(), getSettings()]);
-    return { version: 2, exportedAt: new Date().toISOString(), items, entries, settings };
+    const [items, entries, settings, reProperties, rePrices] = await Promise.all([
+      getItems(), getEntries(), getSettings(), getReProperties(), getRePrices(),
+    ]);
+    return { version: 2, exportedAt: new Date().toISOString(), items, entries, settings, reProperties, rePrices };
   }
 
   // mode: 'overwrite' | 'merge'
@@ -38,6 +47,14 @@ const DB = (() => {
     if (data.settings) {
       await setSettings(data.settings);
     }
+    if (Array.isArray(data.reProperties)) {
+      const base = mode === 'merge' ? await getReProperties() : [];
+      await setReProperties(mergeById(base, data.reProperties));
+    }
+    if (Array.isArray(data.rePrices)) {
+      const base = mode === 'merge' ? await getRePrices() : [];
+      await setRePrices(mergeById(base, data.rePrices));
+    }
   }
 
   async function clearAll() { await clearStore(); }
@@ -48,5 +65,7 @@ const DB = (() => {
     return [...map.values()];
   }
 
-  return { getItems, setItems, getEntries, setEntries, getSettings, setSettings, exportAll, importAll, clearAll };
+  return { getItems, setItems, getEntries, setEntries, getSettings, setSettings,
+           getReProperties, setReProperties, getRePrices, setRePrices,
+           exportAll, importAll, clearAll };
 })();

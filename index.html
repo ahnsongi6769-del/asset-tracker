@@ -39,6 +39,16 @@
         </span>
         <span class="tab-label">입력</span>
       </button>
+      <button class="tab-btn" data-view="realestate">
+        <span class="tab-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 9.5L10 3l8 6.5V18a1 1 0 01-1 1H3a1 1 0 01-1-1V9.5z"/>
+            <rect x="7" y="11" width="3" height="4" rx=".5"/>
+            <rect x="11" y="11" width="3" height="4" rx=".5"/>
+          </svg>
+        </span>
+        <span class="tab-label">부동산</span>
+      </button>
       <button class="tab-btn" data-view="settings">
         <span class="tab-icon">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -90,6 +100,67 @@
     </div>
   </div>
 
+  <!-- 매물 등록 모달 -->
+  <div id="modal-re-property" class="modal hidden" role="dialog">
+    <div class="modal-backdrop"></div>
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <h3 class="modal-title">매물 추가</h3>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="field-label" for="re-prop-name">매물명</label>
+          <input type="text" id="re-prop-name" class="form-input" placeholder="예: 서울 아파트 101동 1201호" autocorrect="off">
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="re-prop-purchase-price">구매가</label>
+          <div class="input-with-unit">
+            <input type="text" id="re-prop-purchase-price" class="form-input" inputmode="numeric" placeholder="200,000,000">
+            <span class="input-unit">원</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="re-prop-purchase-month">구매 연월</label>
+          <input type="month" id="re-prop-purchase-month" class="form-input">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="re-prop-cancel" class="btn-secondary btn-full">취소</button>
+        <button id="re-prop-save" class="btn-primary btn-full">추가</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 시세 입력 모달 -->
+  <div id="modal-re-price" class="modal hidden" role="dialog">
+    <div class="modal-backdrop"></div>
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <h3 class="modal-title">시세 추가</h3>
+      <input type="hidden" id="re-price-prop-id">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="field-label" for="re-price-month">기준 연월</label>
+          <input type="month" id="re-price-month" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="re-price-value">시세</label>
+          <div class="input-with-unit">
+            <input type="text" id="re-price-value" class="form-input" inputmode="numeric" placeholder="230,000,000">
+            <span class="input-unit">원</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="re-price-note">메모 (선택)</label>
+          <input type="text" id="re-price-note" class="form-input" placeholder="예: 호갱노노 참고" autocorrect="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="re-price-cancel" class="btn-secondary btn-full">취소</button>
+        <button id="re-price-save" class="btn-primary btn-full">저장</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts (의존 순서대로) -->
   <script src="https://cdn.jsdelivr.net/npm/idb-keyval@6/dist/umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
@@ -101,10 +172,12 @@
   <script src="js/charts/netWorthLine.js"></script>
   <script src="js/charts/monthlyDelta.js"></script>
   <script src="js/charts/composition.js"></script>
+  <script src="js/charts/realEstateLine.js"></script>
   <script src="js/views/settings.js"></script>
   <script src="js/views/entry.js"></script>
   <script src="js/views/matrix.js"></script>
   <script src="js/views/dashboard.js"></script>
+  <script src="js/views/realestate.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

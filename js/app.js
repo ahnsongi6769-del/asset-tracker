@@ -15,10 +15,11 @@ function navigate(view, params = {}) {
 
   // 화면 렌더링
   switch (view) {
-    case 'dashboard': DashboardView.render(); break;
-    case 'matrix':    MatrixView.render();    break;
-    case 'entry':     EntryView.render(params.month || null); break;
-    case 'settings':  SettingsView.render();  break;
+    case 'dashboard':   DashboardView.render();   break;
+    case 'matrix':      MatrixView.render();      break;
+    case 'entry':       EntryView.render(params.month || null); break;
+    case 'settings':    SettingsView.render();    break;
+    case 'realestate':  RealEstateView.renderList(); break;
   }
 }
 
@@ -36,6 +37,7 @@ async function init() {
   try {
     await State.load();
     bindTabNav();
+    RealEstateView.bindModalEvents();
     navigate('dashboard');
   } catch (e) {
     console.error('앱 초기화 실패:', e);

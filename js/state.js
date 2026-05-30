@@ -2,10 +2,12 @@
 
 // 앱 상태 관리 — 메모리 캐시 + DB 쓰기
 const State = (() => {
-  let _items    = [];
-  let _entries  = [];
-  let _settings = { goal: null };
+  let _items          = [];
+  let _entries        = [];
+  let _settings       = { goal: null };
   let _currentEntryMonth = null;
+  let _reProperties   = [];
+  let _rePrices       = [];
 
   // 첫 실행 기본 항목
   const DEFAULTS = [
@@ -16,16 +18,16 @@ const State = (() => {
 
   // 앱 시작 시 1회 호출 (기본 항목 생성 포함)
   async function load() {
-    [_items, _entries, _settings] = await Promise.all([
-      DB.getItems(), DB.getEntries(), DB.getSettings(),
+    [_items, _entries, _settings, _reProperties, _rePrices] = await Promise.all([
+      DB.getItems(), DB.getEntries(), DB.getSettings(), DB.getReProperties(), DB.getRePrices(),
     ]);
     if (_items.length === 0) await _createDefaults();
   }
 
   // 외부에서 강제 재로드 (clear 후 등)
   async function reload() {
-    [_items, _entries, _settings] = await Promise.all([
-      DB.getItems(), DB.getEntries(), DB.getSettings(),
+    [_items, _entries, _settings, _reProperties, _rePrices] = await Promise.all([
+      DB.getItems(), DB.getEntries(), DB.getSettings(), DB.getReProperties(), DB.getRePrices(),
     ]);
   }
 
@@ -45,6 +47,12 @@ const State = (() => {
   const getEntries  = () => _entries;
   const getSettings = () => _settings;
   const getCurrentEntryMonth = () => _currentEntryMonth;
+  const getReProperties = () => _reProperties;
+  const getRePrices     = () => _rePrices;
+
+  function getRePricesForProperty(propId) {
+    return _rePrices.filter(p => p.propertyId === propId).sort((a, b) => a.month.localeCompare(b.month));
+  }
 
   function getActiveItems() {
     return _items.filter(i => i.active).sort((a, b) => a.order - b.order);
@@ -92,11 +100,37 @@ const State = (() => {
 
   function setCurrentEntryMonth(m) { _currentEntryMonth = m; }
 
+  // ── 부동산 쓰기 ───────────────────────────
+  async function saveReProperty(prop) {
+    const idx = _reProperties.findIndex(p => p.id === prop.id);
+    if (idx >= 0) _reProperties[idx] = prop; else _reProperties.push(prop);
+    await DB.setReProperties(_reProperties);
+  }
+
+  async function deleteReProperty(id) {
+    _reProperties = _reProperties.filter(p => p.id !== id);
+    _rePrices     = _rePrices.filter(p => p.propertyId !== id);
+    await Promise.all([DB.setReProperties(_reProperties), DB.setRePrices(_rePrices)]);
+  }
+
+  async function saveRePrice(price) {
+    const idx = _rePrices.findIndex(p => p.id === price.id);
+    if (idx >= 0) _rePrices[idx] = price; else _rePrices.push(price);
+    await DB.setRePrices(_rePrices);
+  }
+
+  async function deleteRePrice(id) {
+    _rePrices = _rePrices.filter(p => p.id !== id);
+    await DB.setRePrices(_rePrices);
+  }
+
   return {
     load, reload,
     getItems, getEntries, getSettings, getCurrentEntryMonth,
     getActiveItems, getItemsByCategory, getEntryByMonth, getSortedEntries,
     saveItem, deleteItem, saveEntry, deleteEntry, saveSettings,
     setCurrentEntryMonth,
+    getReProperties, getRePrices, getRePricesForProperty,
+    saveReProperty, deleteReProperty, saveRePrice, deleteRePrice,
   };
 })();
