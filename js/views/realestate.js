@@ -136,10 +136,16 @@ const RealEstateView = (() => {
 
     const historyRows = [...prices].reverse().map(p => `
       <div class="re-price-row">
-        <span class="re-price-month">${fmtMonth(p.month)}</span>
-        <span class="re-price-val">${fmtShort(p.price)}</span>
-        ${p.note ? `<span class="re-price-note">${esc(p.note)}</span>` : ''}
-        <button class="btn-re-price-delete" data-id="${esc(p.id)}">삭제</button>
+        <div class="re-price-main">
+          <span class="re-price-month">${fmtMonth(p.month)}</span>
+          <span class="re-price-val">${fmtShort(p.price)}</span>
+          ${p.basis ? `<span class="re-price-basis">${esc(p.basis)}</span>` : ''}
+          <div class="re-price-actions">
+            <button class="btn-re-price-edit" data-id="${esc(p.id)}">수정</button>
+            <button class="btn-re-price-delete" data-id="${esc(p.id)}">삭제</button>
+          </div>
+        </div>
+        ${p.note ? `<div class="re-price-note-text">${esc(p.note)}</div>` : ''}
       </div>`).join('');
 
     return `
@@ -210,7 +216,15 @@ const RealEstateView = (() => {
       _render();
     });
 
-    document.getElementById('btn-re-add-price')?.addEventListener('click', () => _openPriceModal(prop.id));
+    document.getElementById('btn-re-add-price')?.addEventListener('click', () => _openPriceModal(prop.id, null));
+
+    document.querySelectorAll('.btn-re-price-edit').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const p = prices.find(px => px.id === btn.dataset.id);
+        if (p) _openPriceModal(prop.id, p);
+      });
+    });
 
     document.querySelectorAll('.btn-re-price-delete').forEach(btn => {
       btn.addEventListener('click', async (e) => {
@@ -258,11 +272,15 @@ const RealEstateView = (() => {
 
   // ── Modal: Price ───────────────────────────────────────────
 
-  function _openPriceModal(propId) {
-    document.getElementById('re-price-prop-id').value = propId;
-    document.getElementById('re-price-month').value   = currentMonth();
-    document.getElementById('re-price-value').value   = '';
-    document.getElementById('re-price-note').value    = '';
+  function _openPriceModal(propId, existingPrice) {
+    const isEdit = !!existingPrice;
+    document.getElementById('re-price-id').value       = isEdit ? existingPrice.id : '';
+    document.getElementById('re-price-prop-id').value  = propId;
+    document.getElementById('re-price-month').value    = isEdit ? existingPrice.month : currentMonth();
+    document.getElementById('re-price-value').value    = isEdit ? existingPrice.price.toLocaleString('ko-KR') : '';
+    document.getElementById('re-price-basis').value    = isEdit ? (existingPrice.basis || '') : '';
+    document.getElementById('re-price-note').value     = isEdit ? (existingPrice.note || '') : '';
+    document.getElementById('re-price-modal-title').textContent = isEdit ? '시세 수정' : '시세 추가';
     document.getElementById('modal-re-price').classList.remove('hidden');
     setTimeout(() => document.getElementById('re-price-value').focus(), 50);
   }
@@ -272,20 +290,36 @@ const RealEstateView = (() => {
   }
 
   async function _savePrice() {
+    const editId = document.getElementById('re-price-id').value;
     const propId = document.getElementById('re-price-prop-id').value;
     const month  = document.getElementById('re-price-month').value;
     const price  = parseNum(document.getElementById('re-price-value').value);
+    const basis  = document.getElementById('re-price-basis').value;
     const note   = document.getElementById('re-price-note').value.trim();
     if (!month) { alert('연월을 선택해주세요.'); return; }
     if (!price) { alert('시세를 입력해주세요.'); return; }
 
-    const existing = State.getRePricesForProperty(propId).find(p => p.month === month);
-    if (existing) {
-      const ok = await confirm_(`${fmtMonth(month)} 시세가 이미 있어요.\n덮어쓸까요?`);
-      if (!ok) return;
-      await State.saveRePrice({ ...existing, price, note, updatedAt: Date.now() });
+    if (editId) {
+      const target = State.getRePrices().find(p => p.id === editId);
+      if (!target) return;
+      if (target.month !== month) {
+        const conflict = State.getRePricesForProperty(propId).find(p => p.month === month && p.id !== editId);
+        if (conflict) {
+          const ok = await confirm_(`${fmtMonth(month)} 시세가 이미 있어요.\n기존 항목을 삭제하고 덮어쓸까요?`);
+          if (!ok) return;
+          await State.deleteRePrice(conflict.id);
+        }
+      }
+      await State.saveRePrice({ ...target, month, price, basis, note, updatedAt: Date.now() });
     } else {
-      await State.saveRePrice({ id: genId(), propertyId: propId, month, price, note, createdAt: Date.now(), updatedAt: Date.now() });
+      const existing = State.getRePricesForProperty(propId).find(p => p.month === month);
+      if (existing) {
+        const ok = await confirm_(`${fmtMonth(month)} 시세가 이미 있어요.\n덮어쓸까요?`);
+        if (!ok) return;
+        await State.saveRePrice({ ...existing, price, basis, note, updatedAt: Date.now() });
+      } else {
+        await State.saveRePrice({ id: genId(), propertyId: propId, month, price, basis, note, createdAt: Date.now(), updatedAt: Date.now() });
+      }
     }
     _closePriceModal();
     _render();

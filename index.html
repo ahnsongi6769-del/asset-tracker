@@ -130,12 +130,13 @@
     </div>
   </div>
 
-  <!-- 시세 입력 모달 -->
+  <!-- 시세 입력/수정 모달 -->
   <div id="modal-re-price" class="modal hidden" role="dialog">
     <div class="modal-backdrop"></div>
     <div class="modal-sheet">
       <div class="modal-handle"></div>
-      <h3 class="modal-title">시세 추가</h3>
+      <h3 class="modal-title" id="re-price-modal-title">시세 추가</h3>
+      <input type="hidden" id="re-price-id">
       <input type="hidden" id="re-price-prop-id">
       <div class="modal-body">
         <div class="form-group">
@@ -150,8 +151,17 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="field-label" for="re-price-note">메모 (선택)</label>
-          <input type="text" id="re-price-note" class="form-input" placeholder="예: 호갱노노 참고" autocorrect="off">
+          <label class="field-label" for="re-price-basis">시세 근거</label>
+          <select id="re-price-basis" class="form-select">
+            <option value="">선택 안 함</option>
+            <option value="KB시세">KB시세</option>
+            <option value="호갱노노">호갱노노</option>
+            <option value="부동산실거래가">부동산실거래가</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="re-price-note">특이사항 (선택)</label>
+          <input type="text" id="re-price-note" class="form-input" placeholder="예: 같은 동 12층 거래 기준" autocorrect="off">
         </div>
       </div>
       <div class="modal-footer">
