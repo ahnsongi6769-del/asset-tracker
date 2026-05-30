@@ -178,14 +178,16 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-size:
 .hero-net-value { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 4px; }
 .hero-month     { font-size: 13px; opacity: .7; margin-bottom: 10px; }
 .hero-delta {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,.2); border-radius: 20px;
-  padding: 5px 12px; font-size: 14px; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: 24px; padding: 8px 18px;
+  font-size: 18px; font-weight: 800; color: white;
+  background: rgba(255,255,255,.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
-.hero-delta.positive { background: rgba(5,150,105,.3); }
-.hero-delta.negative { background: rgba(220,38,38,.3); }
-.hero-rate       { font-size: 12px; opacity: .85; }
-.hero-delta-label{ font-size: 11px; opacity: .7; }
+.hero-delta.positive { background: #059669; }
+.hero-delta.negative { background: #dc2626; }
+.hero-rate       { font-size: 15px; font-weight: 700; opacity: .9; }
+.hero-delta-label{ font-size: 12px; font-weight: 500; opacity: .75; }
 
 /* 카드 그리드 */
 .card-grid { display: flex; flex-direction: column; gap: 12px; }
